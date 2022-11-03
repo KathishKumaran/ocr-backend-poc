@@ -55,7 +55,7 @@ function filterAndPaginate(query: CustomerListQueryParams) {
 async function savePdf(base64: string) {
   const parser = new XMLParser();
   const fileName = `${new Date().getTime()}.pdf`;
-  const filePath = `${__dirname}/../assets/${fileName}`;
+  const filePath = `/root/ocr/assets/${fileName}`;
   //const filePath = `/app/app/assets/${fileName}`;
   // const base64 = (await (await file).toBuffer()).toString("base64");
   var buf = Buffer.from(base64, "base64");
