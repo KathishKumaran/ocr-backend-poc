@@ -4,6 +4,7 @@ const corsOptions = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
   exposedHeaders: "Authorization",
+  accessControlAllowOrigin: "*",
 };
 
 export default corsOptions;
