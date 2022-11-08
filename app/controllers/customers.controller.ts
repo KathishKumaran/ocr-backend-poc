@@ -6,6 +6,7 @@ import {
   savePdf,
 } from "../services/customer.service";
 import { CustomerListQueryParams } from "../types/customers.controllers";
+import logger from "../config/logger";
 
 function createCustomer(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as CustomerAttributes;
@@ -40,7 +41,7 @@ async function pdf(req: FastifyRequest, reply: FastifyReply) {
         reply.code(403).send(error);
       });
   } catch (error) {
-    console.log("--------------catch", error);
+    logger.info("--------------catch", error);
   }
 }
 

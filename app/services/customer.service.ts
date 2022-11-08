@@ -11,6 +11,7 @@ import globalSearchQuery from "../queries/customer-global-search-query";
 import columnSearchQuery from "../queries/customer-column-search.query";
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
+import logger from "../config/logger";
 const fs = require("fs");
 
 async function create(attrs: CustomerAttributes) {
@@ -67,6 +68,7 @@ async function savePdf(base64: string) {
         throw error;
       } else {
         console.log("buffer saved!");
+        logger.info("buffer saved!");
       }
     });
     const data = await axios.request({
@@ -79,11 +81,11 @@ async function savePdf(base64: string) {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log("---------------------------------", data.data);
+    logger.info("---------------------------------", data.data);
 
     return parser.parse(data.data);
   } catch (error) {
-    console.log("-----------------catch error", error);
+    logger.info("-----------------catch error", error);
   }
 }
 
