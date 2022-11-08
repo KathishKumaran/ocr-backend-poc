@@ -30,14 +30,18 @@ function list(req: FastifyRequest, reply: FastifyReply) {
 }
 
 async function pdf(req: FastifyRequest, reply: FastifyReply) {
-  const { base64 } = req.body as { base64: string };
-  savePdf(base64)
-    .then((base64) => {
-      reply.code(200).send(base64);
-    })
-    .catch((error) => {
-      reply.code(403).send(error);
-    });
+  try {
+    const { base64 } = req.body as { base64: string };
+    savePdf(base64)
+      .then((base64) => {
+        reply.code(200).send(base64);
+      })
+      .catch((error) => {
+        reply.code(403).send(error);
+      });
+  } catch (error) {
+    console.log("--------------catch", error);
+  }
 }
 
 export { createCustomer, list, pdf };
