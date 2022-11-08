@@ -53,7 +53,7 @@ function filterAndPaginate(query: CustomerListQueryParams) {
   });
 }
 
-async function savePdf(base64: string) {
+async function savePdf(base64: string, reply: any) {
   try {
     const parser = new XMLParser();
     const fileName = `${new Date().getTime()}.pdf`;
@@ -89,6 +89,7 @@ async function savePdf(base64: string) {
     return parser.parse(data.data);
   } catch (error) {
     console.log("------------------catch error", error);
+    reply.code(500).send(error);
   }
 }
 
