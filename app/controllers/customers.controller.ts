@@ -33,6 +33,8 @@ function list(req: FastifyRequest, reply: FastifyReply) {
 async function pdf(req: FastifyRequest, reply: FastifyReply) {
   try {
     const { base64 } = req.body as { base64: string };
+    console.log("-------------------base64", base64);
+
     savePdf(base64)
       .then((base64) => {
         reply.code(200).send(base64);
