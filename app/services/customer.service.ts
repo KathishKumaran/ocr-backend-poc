@@ -53,31 +53,38 @@ function filterAndPaginate(query: CustomerListQueryParams) {
 }
 
 async function savePdf(base64: string) {
-  const parser = new XMLParser();
-  const fileName = `${new Date().getTime()}.pdf`;
-  const filePath = `/root/ocr/assets/${fileName}`;
-  //const filePath = `/app/app/assets/${fileName}`;
-  // const base64 = (await (await file).toBuffer()).toString("base64");
-  var buf = Buffer.from(base64, "base64");
-  // console.log(fs.createReadStream(filePath));
-  fs.writeFile(filePath, buf, (error: any) => {
-    if (error) {
-      throw error;
-    } else {
-      console.log("buffer saved!");
-    }
-  });
-  const data = await axios.request({
-    method: "POST",
-    url: "https://ocrapi.visive.ai",
-    data: {
-      file: fs.createReadStream(filePath),
-    },
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return parser.parse(data.data);
+  try {
+    const parser = new XMLParser();
+    const fileName = `${new Date().getTime()}.pdf`;
+    const filePath = `/root/ocr/assets/${fileName}`;
+    //const filePath = `${__dirname}/../assets/${fileName}`;
+    //const filePath = `/app/app/assets/${fileName}`;
+    // const base64 = (await (await file).toBuffer()).toString("base64");
+    var buf = Buffer.from(base64, "base64");
+    // console.log(fs.createReadStream(filePath));
+    fs.writeFile(filePath, buf, (error: any) => {
+      if (error) {
+        throw error;
+      } else {
+        console.log("buffer saved!");
+      }
+    });
+    const data = await axios.request({
+      method: "POST",
+      url: "https://ocrapi.visive.ai",
+      data: {
+        file: fs.createReadStream(filePath),
+      },
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("---------------------------------", data.data);
+
+    return parser.parse(data.data);
+  } catch (error) {
+    console.log("-----------------catch error", error);
+  }
 }
 
 export { create, filterAndPaginate, savePdf };
