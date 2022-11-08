@@ -41,7 +41,7 @@ async function pdf(req: FastifyRequest, reply: FastifyReply) {
         reply.code(403).send(error);
       });
   } catch (error) {
-    logger.info("--------------catch", error);
+    console.log("--------------catch", error);
   }
 }
 

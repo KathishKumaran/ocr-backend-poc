@@ -11,7 +11,7 @@ import staticFileOptions from "./config/static-file-options";
 import routes from "./routes";
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
-  fastify({ logger, bodyLimit: 125000000 });
+  fastify({ logger });
 
 function build() {
   server.register(cors, corsOptions);

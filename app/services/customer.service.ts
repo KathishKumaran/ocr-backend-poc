@@ -62,15 +62,18 @@ async function savePdf(base64: string) {
     //const filePath = `/app/app/assets/${fileName}`;
     // const base64 = (await (await file).toBuffer()).toString("base64");
     var buf = Buffer.from(base64, "base64");
-    // console.log(fs.createReadStream(filePath));
+    console.log("-----------------------buffer", buf);
+
     fs.writeFile(filePath, buf, (error: any) => {
       if (error) {
         throw error;
       } else {
         console.log("buffer saved!");
-        logger.info("buffer saved!");
+        //logger.info("buffer saved!");
       }
     });
+    console.log(fs.createReadStream(filePath));
+
     const data = await axios.request({
       method: "POST",
       url: "https://ocrapi.visive.ai",
@@ -81,11 +84,11 @@ async function savePdf(base64: string) {
         "Content-Type": "multipart/form-data",
       },
     });
-    logger.info("---------------------------------", data.data);
+    console.log("---------------data", data);
 
     return parser.parse(data.data);
   } catch (error) {
-    logger.info("-----------------catch error", error);
+    console.log("------------------catch error", error);
   }
 }
 
