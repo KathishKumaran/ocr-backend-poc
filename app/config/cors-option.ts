@@ -1,5 +1,5 @@
 const corsOptions = {
-  origin: "https://ocr-poc-steel.vercel.app",
+  origin: "*",
   methods: "OPTION, GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204,
